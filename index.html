@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sreerag S | Portfolio</title>
+<style>
+  :root{
+    --primary:#0b3d91;
+    --primary-light:#3b74d6;
+    --ice:#f3f8ff;
+    --white:#ffffff;
+    --text:#13233a;
+    --muted:#5f7186;
+    --shadow: 0 12px 28px rgba(11,61,145,0.14);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    color:var(--text);
+    background:var(--white);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  a{text-decoration:none; color:inherit;}
+  ul{list-style:none;}
+  section{padding:100px 8% 80px;}
+
+  header{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 8%;
+    background:var(--white);
+    border-bottom:1px solid #e7eefc;
+    z-index:1000;
+  }
+  .logo{
+    font-weight:800; font-size:1.25rem;
+    color:var(--primary);
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo::before{
+    content:'';
+    width:10px; height:10px;
+    background:var(--primary-light);
+    border-radius:3px;
+    display:inline-block;
+    transform:rotate(45deg);
+  }
+  nav ul{display:flex; gap:30px;}
+  nav ul li a{
+    font-weight:600; font-size:0.95rem;
+    color:var(--text);
+    padding-bottom:4px;
+    border-bottom:2px solid transparent;
+    transition:all .25s;
+  }
+  nav ul li a:hover{color:var(--primary); border-color:var(--primary-light);}
+
+  .menu-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer;}
+  .menu-toggle span{width:24px; height:3px; background:var(--primary); border-radius:2px;}
+
+  #home{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:110px;
+    background:var(--ice);
+  }
+  .hero-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:50px;
+    max-width:1100px;
+    margin:0 auto;
+    width:100%;
+    flex-wrap:wrap;
+  }
+  .hero-text{flex:1 1 380px;}
+  .hero-text .eyebrow{
+    color:var(--primary-light);
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-size:0.8rem;
+    margin-bottom:10px;
+  }
+  .hero-text h1{
+    font-size:2.8rem;
+    color:var(--text);
+    margin-bottom:6px;
+  }
+  .hero-text h1 span{color:var(--primary);}
+  .hero-text h2{
+    font-size:1.15rem;
+    font-weight:500;
+    color:var(--muted);
+    margin-bottom:20px;
+  }
+  .hero-text p{
+    color:var(--muted);
+    margin-bottom:28px;
+    max-width:460px;
+  }
+  .btn-group{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    padding:13px 26px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:0.92rem;
+    border:2px solid var(--primary);
+    transition:all .3s ease;
+  }
+  .btn-primary{background:var(--primary); color:#fff;}
+  .btn-primary:hover{background:var(--primary-light); border-color:var(--primary-light); transform:translateY(-3px); box-shadow:var(--shadow);}
+  .btn-outline{background:transparent; color:var(--primary);}
+  .btn-outline:hover{background:var(--primary); color:#fff; transform:translateY(-3px);}
+
+  .hero-photo{
+    flex:0 0 240px;
+    width:240px; height:240px;
+    border-radius:28px;
+    background:linear-gradient(145deg, var(--primary), var(--primary-light));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:3.4rem; font-weight:800;
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .hero-photo::after{
+    content:'';
+    position:absolute;
+    inset:-14px;
+    border:2px dashed var(--primary-light);
+    border-radius:34px;
+    opacity:0.5;
+  }
+
+  .section-head{margin-bottom:46px; text-align:center;}
+  .section-head p.tag{
+    color:var(--primary-light);
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-size:0.78rem;
+    margin-bottom:6px;
+  }
+  .section-head h2{font-size:2rem; color:var(--text);}
+  .section-head h2 span{color:var(--primary);}
+
+  .about-grid{
+    display:flex;
+    gap:40px;
+    max-width:900px;
+    margin:0 auto;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .about-grid .about-text{flex:1 1 420px; color:var(--muted);}
+  .about-stat-box{
+    flex:0 0 220px;
+    background:var(--ice);
+    border-radius:var(--radius);
+    padding:26px;
+    text-align:center;
+    box-shadow:var(--shadow);
+  }
+  .about-stat-box h3{color:var(--primary); font-size:2rem;}
+  .about-stat-box p{color:var(--muted); font-size:0.9rem; margin-top:4px;}
+
+  #skills{background:var(--ice);}
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:18px;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .skill-card{
+    background:var(--white);
+    border-radius:14px;
+    padding:22px 12px;
+    text-align:center;
+    font-weight:700;
+    color:var(--primary);
+    box-shadow:0 4px 12px rgba(11,61,145,0.08);
+    transition:all .3s ease;
+    border-bottom:3px solid transparent;
+  }
+  .skill-card:hover{
+    transform:translateY(-6px);
+    border-bottom-color:var(--primary-light);
+    box-shadow:var(--shadow);
+  }
+
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:26px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .project-card{
+    background:var(--white);
+    border:1px solid #e7eefc;
+    border-radius:var(--radius);
+    padding:28px;
+    transition:all .3s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .project-card::before{
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:5px;
+    background:linear-gradient(90deg, var(--primary), var(--primary-light));
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .35s ease;
+  }
+  .project-card:hover::before{transform:scaleX(1);}
+  .project-card:hover{box-shadow:var(--shadow); transform:translateY(-6px);}
+  .project-card h3{color:var(--text); margin-bottom:10px; font-size:1.15rem;}
+  .project-card p{color:var(--muted); font-size:0.93rem; margin-bottom:16px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .tag{
+    background:var(--ice);
+    color:var(--primary);
+    font-size:0.72rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:6px;
+  }
+
+  #contact{background:var(--ice);}
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    max-width:700px;
+    margin:0 auto;
+  }
+  .contact-card{
+    background:var(--white);
+    border-radius:14px;
+    padding:24px 32px;
+    text-align:center;
+    min-width:180px;
+    font-weight:700;
+    color:var(--primary);
+    box-shadow:0 4px 12px rgba(11,61,145,0.08);
+    transition:all .3s ease;
+  }
+  .contact-card:hover{
+    background:var(--primary);
+    color:#fff;
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+  }
+  .contact-card small{display:block; font-weight:400; margin-top:4px; opacity:0.85;}
+
+  footer{
+    text-align:center;
+    padding:24px;
+    background:var(--primary);
+    color:#fff;
+    font-size:0.88rem;
+  }
+
+  .reveal{opacity:0; transform:translateY(26px); transition:all .6s ease;}
+  .reveal.active{opacity:1; transform:translateY(0);}
+
+  @media(max-width:768px){
+    nav ul{
+      position:fixed; top:64px; right:0;
+      background:var(--white);
+      flex-direction:column;
+      width:200px; padding:20px;
+      box-shadow:var(--shadow);
+      border-radius:0 0 0 14px;
+      transform:translateX(100%);
+      transition:transform .3s ease;
+    }
+    nav ul.open{transform:translateX(0);}
+    .menu-toggle{display:flex;}
+    .hero-wrap{flex-direction:column-reverse; text-align:center;}
+    .hero-text p{margin-left:auto; margin-right:auto;}
+    .btn-group{justify-content:center;}
+    .hero-text h1{font-size:2.2rem;}
+    section{padding:80px 6% 60px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Sreerag S</div>
+  <nav>
+    <ul id="navMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+</header>
+
+<section id="home">
+  <div class="hero-wrap">
+    <div class="hero-text reveal">
+      <p class="eyebrow">Welcome to my portfolio</p>
+      <h1>Hi, I'm <span>Sreerag S</span></h1>
+      <h2>Computer Science Engineering Student</h2>
+      <p>B.Tech CSE student with a strong interest in programming and technology. I like building clean, working software and understanding how systems come together end to end.</p>
+      <div class="btn-group">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-photo reveal">SS</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-head reveal">
+    <p class="tag">Get to know</p>
+    <h2>About <span>Me</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm pursuing a B.Tech in Computer Science Engineering and have a genuine interest in programming, software development, and technology as a whole. I enjoy solving problems with code, learning new languages and tools, and figuring out how things work under the hood — from the interfaces users interact with to the systems running behind them. I'm always looking to build, break, and improve things through hands-on projects.</p>
+    </div>
+    <div class="about-stat-box reveal">
+      <h3>B.Tech</h3>
+      <p>Computer Science Engineering</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-head reveal">
+    <p class="tag">What I work with</p>
+    <h2>My <span>Skills</span></h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">HTML</div>
+    <div class="skill-card reveal">CSS</div>
+    <div class="skill-card reveal">JavaScript</div>
+    <div class="skill-card reveal">Python</div>
+    <div class="skill-card reveal">C</div>
+    <div class="skill-card reveal">Git &amp; GitHub</div>
+    <div class="skill-card reveal">Linux</div>
+    <div class="skill-card reveal">SQL</div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-head reveal">
+    <p class="tag">Things I've built</p>
+    <h2>My <span>Projects</span></h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <h3>Personal Portfolio Website</h3>
+      <p>A responsive personal portfolio built with HTML and CSS to showcase my skills, projects, and contact details in a clean, modern layout.</p>
+      <div class="tag-row">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <h3>YouTube Video Downloader</h3>
+      <p>A Python-based tool that lets users download YouTube videos by pasting a video link, with options for choosing quality.</p>
+      <div class="tag-row">
+        <span class="tag">Python</span>
+        <span class="tag">Automation</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <h3>Attendance Management App</h3>
+      <p>An application to record, track, and manage student attendance efficiently, backed by a database for storing records.</p>
+      <div class="tag-row">
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-head reveal">
+    <p class="tag">Let's connect</p>
+    <h2>Get In <span>Touch</span></h2>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:sreerag.s@example.com" class="contact-card reveal">
+      Email
+      <small>sreerag.s@example.com</small>
+    </a>
+    <a href="https://github.com/" target="_blank" class="contact-card reveal">
+      GitHub
+      <small>github.com/sreerag-s</small>
+    </a>
+    <a href="https://linkedin.com/" target="_blank" class="contact-card reveal">
+      LinkedIn
+      <small>linkedin.com/in/sreerag-s</small>
+    </a>
+  </div>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> Sreerag S. All rights reserved.
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  menuToggle.addEventListener('click', ()=> navMenu.classList.toggle('open'));
+  navMenu.querySelectorAll('a').forEach(link=>{
+    link.addEventListener('click', ()=> navMenu.classList.remove('open'));
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
